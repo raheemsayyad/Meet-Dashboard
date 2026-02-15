@@ -1,0 +1,551 @@
+body { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    background-color: #f8fafc; 
+}
+
+/* Login page motion + polish */
+#login-screen {
+    position: relative;
+    overflow: hidden;
+    animation: loginScreenFade 0.5s ease-out;
+}
+
+#login-screen::before {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 999px;
+    top: -90px;
+    left: -70px;
+    background: radial-gradient(circle, rgba(239, 68, 68, 0.18), rgba(239, 68, 68, 0));
+    animation: loginOrbFloat 6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+#login-screen::after {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    border-radius: 999px;
+    bottom: -80px;
+    right: -70px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.14), rgba(59, 130, 246, 0));
+    animation: loginOrbFloat 7s ease-in-out infinite reverse;
+    pointer-events: none;
+}
+
+#login-screen > div {
+    position: relative;
+    z-index: 1;
+    animation: loginCardIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation-fill-mode: both;
+}
+
+#login-screen > div::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(120deg, rgba(248, 113, 113, 0.22), rgba(59, 130, 246, 0.12), rgba(248, 113, 113, 0.22));
+    z-index: -1;
+    filter: blur(8px);
+    opacity: 0.55;
+    animation: loginBorderGlow 3.6s ease-in-out infinite;
+    pointer-events: none;
+}
+
+#login-screen > div:hover {
+    animation: loginCardIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), loginCardBreath 2.8s ease-in-out infinite;
+}
+
+#login-screen > div > div:first-child {
+    animation: loginIconPop 0.5s ease-out 0.15s both;
+}
+
+#login-screen input {
+    transition: border-color 0.2s ease, box-shadow 0.22s ease, transform 0.18s ease;
+}
+
+#login-screen input:focus {
+    border-color: #f87171 !important;
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.2);
+    transform: translateY(-1px);
+}
+
+#login-screen button[type='submit'] {
+    transition: transform 0.2s ease, box-shadow 0.25s ease, filter 0.2s ease;
+}
+
+#login-screen button[type='submit']:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 24px -14px rgba(220, 38, 38, 0.65);
+    filter: saturate(1.05);
+}
+
+#login-screen button[type='submit']:active {
+    transform: translateY(0);
+}
+
+.animate-slide { 
+    animation: slideIn 0.3s ease-out forwards; 
+}
+
+@keyframes slideIn { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+@keyframes loginScreenFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes loginCardIn {
+    from { opacity: 0; transform: translateY(14px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes loginOrbFloat {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(10px) translateX(8px); }
+}
+
+@keyframes loginCardBreath {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-2px) scale(1.004); }
+}
+
+@keyframes loginBorderGlow {
+    0%, 100% { opacity: 0.4; filter: blur(8px); }
+    50% { opacity: 0.72; filter: blur(10px); }
+}
+
+@keyframes loginIconPop {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* --- Professional Motion System --- */
+body {
+    animation: pageFade 0.5s ease-out;
+}
+
+header {
+    animation: headerDrop 0.45s ease-out;
+}
+
+main > div {
+    animation: sectionReveal 0.4s ease-out;
+}
+
+button,
+input,
+select,
+textarea {
+    transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#hotels-grid > div {
+    animation: cardIn 0.35s ease-out both;
+}
+
+#hotels-grid > div:nth-child(1) { animation-delay: 0.04s; }
+#hotels-grid > div:nth-child(2) { animation-delay: 0.08s; }
+#hotels-grid > div:nth-child(3) { animation-delay: 0.12s; }
+#hotels-grid > div:nth-child(4) { animation-delay: 0.16s; }
+#hotels-grid > div:nth-child(5) { animation-delay: 0.2s; }
+#hotels-grid > div:nth-child(6) { animation-delay: 0.24s; }
+
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div {
+    animation: statIn 0.45s ease-out both;
+}
+
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div:nth-child(1) { animation-delay: 0.04s; }
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div:nth-child(2) { animation-delay: 0.08s; }
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div:nth-child(3) { animation-delay: 0.12s; }
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div:nth-child(4) { animation-delay: 0.16s; }
+
+#ledger-table-body tr,
+#purchase-table-body tr {
+    animation: rowFadeIn 0.28s ease-out both;
+}
+
+#ledger-table-body tr:hover,
+#purchase-table-body tr:hover {
+    transform: translateX(2px);
+}
+
+#log-form-container,
+#purchase-form,
+#add-hotel-bar {
+    animation: formReveal 0.28s ease-out;
+    transform-origin: top center;
+}
+
+@keyframes pageFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes headerDrop {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sectionReveal {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes statIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rowFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes formReveal {
+    from { opacity: 0; transform: scaleY(0.96) translateY(-4px); }
+    to { opacity: 1; transform: scaleY(1) translateY(0); }
+}
+
+.row-hover:hover { 
+    background-color: #fff1f1 !important; 
+}
+
+input::-webkit-outer-spin-button, 
+input::-webkit-inner-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+/* --- Business Analytics Add-ons --- */
+
+/* Dashboard Stat Cards */
+.stats-card {
+    margin-top: 150px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Custom Table Styling for Analytics */
+.analytics-table-container {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+}
+
+.analytics-table-container::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.analytics-table-container::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 10px;
+}
+
+/* Glassmorphism for Balance Sheets */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Profit/Loss Indicators */
+.text-profit {
+    color: #059669;
+    font-weight: 700;
+}
+
+.text-loss {
+    color: #dc2626;
+    font-weight: 700;
+}
+
+/* Progress Bars for Inventory Stock */
+.stock-bar-bg {
+    height: 8px;
+    background-color: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.stock-bar-fill {
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+}
+
+/* --- Card Visual Upgrade (Safe) --- */
+#hotels-grid > div {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #334155 !important;
+    border-radius: 1rem !important;
+    background: linear-gradient(180deg, #0f172a 0%, #111827 100%) !important;
+    box-shadow: 0 12px 30px -16px rgba(2, 6, 23, 0.75);
+    transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+#hotels-grid > div::before {
+    content: "";
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 110px;
+    height: 110px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.2), rgba(56, 189, 248, 0));
+    pointer-events: none;
+}
+
+#hotels-grid > div:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 42px -20px rgba(2, 6, 23, 0.9);
+}
+
+#hotels-grid h3,
+#hotels-grid p,
+#hotels-grid span {
+    color: #e2e8f0 !important;
+}
+
+#hotels-grid .text-red-500 {
+    color: #fca5a5 !important;
+}
+
+#hotels-grid .text-green-600 {
+    color: #86efac !important;
+}
+
+#hotels-grid button.w-full {
+    background: rgba(30, 41, 59, 0.9) !important;
+    color: #e2e8f0 !important;
+}
+
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div,
+.stats-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.4rem !important;
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    box-shadow: 0 18px 34px -18px rgba(2, 6, 23, 0.8);
+    transition: transform 0.22s ease, box-shadow 0.25s ease;
+}
+
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div::after,
+.stats-card::after {
+    content: "";
+    position: absolute;
+    right: -30px;
+    top: -24px;
+    width: 110px;
+    height: 110px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+}
+
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div:hover,
+.stats-card:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 30px 48px -22px rgba(2, 6, 23, 0.9);
+}
+
+#business-view .lg\:col-span-2 {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 10px 22px -16px rgba(15, 23, 42, 0.35);
+}
+
+#business-view .space-y-4 > div {
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    box-shadow: 0 10px 22px -16px rgba(15, 23, 42, 0.35);
+}
+
+/* Dark subtle professional metric card palette */
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div {
+    color: #e2e8f0;
+}
+
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div:nth-child(1) {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%) !important;
+}
+
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div:nth-child(2) {
+    background: linear-gradient(135deg, #111827 0%, #1f2937 100%) !important;
+}
+
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div:nth-child(3) {
+    background: linear-gradient(135deg, #1f2937 0%, #78350f 100%) !important;
+}
+
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div:nth-child(4) {
+    background: linear-gradient(135deg, #1f2937 0%, #7f1d1d 100%) !important;
+}
+
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div p,
+#business-view .grid.grid-cols-1.md\:grid-cols-4.gap-6 > div h3 {
+    color: #f8fafc !important;
+    opacity: 1 !important;
+}
+
+#business-view .space-y-4 > div h3,
+#business-view .space-y-4 > div span,
+#business-view .space-y-4 > div p {
+    color: #1e293b !important;
+}
+
+/* Header CTA: Business Analytics */
+header button[onclick*='showBusinessView'] {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+    color: #1e293b !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 0.85rem !important;
+    box-shadow: 0 6px 14px -10px rgba(15, 23, 42, 0.45);
+    font-weight: 700 !important;
+    letter-spacing: 0.2px;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    animation: businessBtnFloat 2.8s ease-in-out infinite;
+}
+
+header button[onclick*='showBusinessView']:hover {
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%) !important;
+    border-color: #94a3b8 !important;
+    color: #0f172a !important;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px -14px rgba(15, 23, 42, 0.45);
+}
+
+header button[onclick*='showBusinessView']:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.35);
+}
+
+header button[onclick*='showBusinessView']::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -130%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(100deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+    animation: businessBtnShine 3.2s ease-in-out infinite;
+}
+
+@keyframes businessBtnFloat {
+    0%,
+    100% {
+        box-shadow: 0 6px 14px -10px rgba(15, 23, 42, 0.45);
+        transform: translateY(0);
+    }
+    50% {
+        box-shadow: 0 12px 22px -12px rgba(15, 23, 42, 0.5);
+        transform: translateY(-1px);
+    }
+}
+
+@keyframes businessBtnShine {
+    0% {
+        left: -130%;
+    }
+    55%,
+    100% {
+        left: 150%;
+    }
+}
+
+/* Inventory & Expenses form spacing fixes */
+#purchase-form .grid > .col-span-1,
+#purchase-form #field-qty,
+#purchase-form #field-weight,
+#purchase-form #field-rate {
+    margin-top: 10px;
+}
+
+#purchase-form label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+#p-date,
+#p-type,
+#p-qty,
+#p-weight,
+#p-rate,
+#p-total-cost,
+#p-emp-name,
+#p-days,
+#p-leaves,
+#p-paid,
+#p-pending {
+    min-height: 44px;
+    padding: 0.7rem 0.85rem !important;
+    line-height: 1.2;
+}
+
+#p-type {
+    padding-right: 2rem !important;
+}
+
+/* Inventory container horizontal breathing space */
+#business-view .lg\:col-span-2 > .p-6,
+#purchase-form {
+    padding-left: 1.1rem !important;
+    padding-right: 1.1rem !important;
+}
+
+#business-view .lg\:col-span-2 .overflow-x-auto {
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+}
+
+/* Responsive Grid for Analytics View */
+@media (max-width: 768px) {
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #business-view .lg\:col-span-2 > .p-6,
+    #purchase-form,
+    #business-view .lg\:col-span-2 .overflow-x-auto {
+        padding-left: 0.7rem !important;
+        padding-right: 0.7rem !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}

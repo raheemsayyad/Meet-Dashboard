@@ -1,0 +1,478 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeatWholesale Pro | Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
+            <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-100 animate-slide text-center">
+                <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="indian-rupee" class="text-red-600 w-8 h-8"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-slate-800 mb-6">Meat Shop Manager</h1>
+                <form id="login-form" class="space-y-4 text-left">
+                    <input type="text" id="username" class="w-full px-4 py-3 border rounded-xl outline-none" placeholder="Username (admin)">
+                    <input type="password" id="password" class="w-full px-4 py-3 border rounded-xl outline-none" placeholder="Password (1234)">
+                    <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-xl font-bold shadow-lg">Log In</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="dashboard" class="hidden min-h-screen flex flex-col">
+            <header class="bg-white border-b sticky top-0 z-30 shadow-sm px-4 h-16 flex items-center justify-between">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="showHotelList()">
+                    <div class="bg-red-600 p-1.5 rounded-lg"><i data-lucide="indian-rupee" class="text-white w-5 h-5"></i></div>
+                    <span class="font-bold text-lg">MeatWholesale Pro</span>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button onclick="showBusinessView()" class="text-xs md:text-sm font-bold text-red-600 bg-red-50 px-4 py-2 rounded-xl hover:bg-red-100 transition-colors border border-red-100">
+                        Business Analytics
+                    </button>
+                    <button onclick="location.reload()" class="p-2 text-slate-400 hover:text-red-600 transition-colors">
+                        <i data-lucide="log-out" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </header>
+
+            <main class="max-w-7xl mx-auto p-4 md:p-6 w-full">
+                
+                <!-- <div id="hotel-list-view" class="space-y-6 animate-slide">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-2xl font-extrabold text-slate-800">Partner Hotels</h2>
+                        <button onclick="toggleElement('add-hotel-container')" class="bg-red-600 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 font-bold">
+                            <i data-lucide="plus" class="w-5 h-5"></i> Add Hotel
+                        </button>
+                    </div>
+                    <div id="add-hotel-container" class="hidden bg-white p-5 rounded-2xl border flex gap-3">
+                        <input id="new-hotel-name" class="flex-1 px-4 py-2 border rounded-xl outline-none" placeholder="Hotel Name...">
+                        <button onclick="saveNewHotel()" class="bg-green-600 text-white px-6 py-2 rounded-xl font-bold">Save</button>
+                    </div>
+                    <div id="hotels-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+                </div> -->
+<!-- <div id="hotel-list-view" class="p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-slate-800">Hotels</h2>
+        <button onclick="addHotel()" class="bg-red-500 text-white px-4 py-2 rounded-xl font-bold flex items-center gap-2">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            Add Hotel
+        </button>
+    </div>
+
+    <div id="hotel-card-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        </div>
+</div> -->
+
+     <div id="hotel-list-view" class="space-y-6 animate-slide">
+    <div class="flex items-center justify-between">
+        <h2 class="text-2xl font-extrabold text-slate-800">Partner Hotels</h2>
+        <button onclick="toggleElement('add-hotel-bar')" class="bg-red-600 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 font-bold hover:bg-red-700 transition-colors">
+            <i data-lucide="plus" class="w-5 h-5"></i> Add Hotel
+        </button>
+    </div>
+
+    <div id="add-hotel-bar" class="hidden bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-3 animate-slide">
+        <input type="text" id="hotel-name-input" 
+               class="flex-1 px-4 py-3 border border-slate-200 rounded-xl outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all" 
+               placeholder="Enter Hotel Name (e.g. Grand Royal Hotel)">
+        <input type="tel" id="hotel-phone-input"
+               class="flex-1 sm:flex-none sm:w-64 px-4 py-3 border border-slate-200 rounded-xl outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all"
+               placeholder="Phone Number (e.g. 9876543210)">
+        <div class="flex gap-2">
+            <button onclick="saveNewHotelFromBar()" class="flex-1 sm:flex-none bg-green-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-green-700 transition-shadow">
+                Save Hotel
+            </button>
+            <button onclick="toggleElement('add-hotel-bar')" class="bg-slate-100 text-slate-500 px-4 py-3 rounded-xl font-bold hover:bg-slate-200">
+                Cancel
+            </button>
+        </div>
+    </div>
+
+    <div id="hotels-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+</div>
+<div id="ledger-view" class="hidden space-y-6 animate-slide">
+                    <button onclick="showHotelList()" class="flex items-center gap-2 text-slate-500 font-bold hover:text-slate-800 transition-colors">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back
+                    </button>
+
+                    <div class="bg-white rounded-[2rem] shadow-xl border overflow-hidden">
+                        <div class="p-8 bg-slate-900 text-white flex flex-col md:flex-row justify-between gap-8">
+                            <div>
+                                <h2 id="current-hotel-name" class="text-4xl font-extrabold mb-2 text-white">Hotel</h2>
+                                <span class="text-xs uppercase text-slate-400 font-bold">Live Account Status</span>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 px-8 py-5 rounded-2xl border border-white/5 min-w-[220px]">
+                                    <p id="dues-label" class="text-[10px] text-slate-400 uppercase font-black mb-1">Status</p>
+                                    <p id="total-dues" class="text-3xl font-black text-white">?0.00</p>
+                                </div>
+                                <div class="bg-white/10 px-8 py-5 rounded-2xl border border-white/5 min-w-[160px]">
+                                    <p class="text-[10px] text-slate-400 uppercase font-black mb-1">Total Weight</p>
+                                    <p id="total-weight" class="text-3xl font-black text-blue-400">0.00 <span class="text-sm">kg</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6">
+                            <div class="flex justify-between mb-8">
+                                <h3 class="font-extrabold text-2xl">Transactions</h3>
+                                <button onclick="toggleLogForm()" class="bg-red-600 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2">
+                                    <i data-lucide="plus-circle" class="w-5 h-5"></i> New Entry
+                                </button>
+                            </div>
+
+                            <div id="log-form-container" class="hidden mb-10 p-6 bg-slate-50 rounded-2xl border-2 border-dashed border-red-100">
+                                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-4">
+                                    <input type="hidden" id="edit-id">
+                                    <div><label class="text-[10px] font-bold uppercase">Date</label><input type="date" id="log-date" class="w-full p-2 border rounded-lg"></div>
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex justify-between items-center px-1">
+                                            <label class="text-[10px] font-bold uppercase text-slate-500">Item</label>
+                                            <div class="flex gap-2">
+                                                <button onclick="manageItems()" class="text-[10px] text-green-600 font-extrabold hover:underline">+ Add</button>
+                                                <button onclick="removeItem()" class="text-[10px] text-red-600 font-extrabold hover:underline">- Remove</button>
+                                            </div>
+                                        </div>
+                                        <select id="log-item" class="w-full p-2.5 border border-slate-200 rounded-xl bg-white shadow-sm outline-none font-medium text-slate-700"></select>
+                                        <p id="log-stock-availability" class="text-[11px] font-bold text-red-600 px-1">Stock Available: 0</p>
+                                    </div>
+                                    <div><label class="text-[10px] font-bold uppercase">Qty</label><input type="number" id="log-qty" class="w-full p-2 border rounded-lg" placeholder="0"></div>
+                                    <div><label class="text-[10px] font-bold uppercase">Weight (kg)</label><input type="number" id="log-weight" step="0.01" class="w-full p-2 border rounded-lg" placeholder="0.00"></div>
+                                    <div><label class="text-[10px] font-bold uppercase">Rate (?)</label><input type="number" id="log-rate" class="w-full p-2 border rounded-lg" placeholder="?"></div>
+                                    <div><label class="text-[10px] font-bold uppercase">Paid (?)</label><input type="number" id="log-paid" class="w-full p-2 border rounded-lg" value="0"></div>
+                                    <div class="flex items-end"><button onclick="saveLog()" class="w-full bg-slate-900 text-white p-2 rounded-lg font-bold">Save</button></div>
+                                </div>
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left min-w-[1000px]">
+                                    <thead>
+                                        <tr class="border-b">
+                                            <th class="py-4 px-2 text-[10px] font-bold uppercase">Date</th>
+                                            <th class="py-4 px-2 text-[10px] font-bold uppercase">Item</th>
+                                            <th class="py-4 px-2 text-right text-[10px] font-bold uppercase">Qty</th>
+                                            <th class="py-4 px-2 text-right text-[10px] font-bold uppercase">Weight</th>
+                                            <th class="py-4 px-2 text-right text-[10px] font-bold uppercase text-slate-600">Total Amt</th>
+                                            <th class="py-4 px-2 text-right text-[10px] font-bold uppercase text-green-600">Paid</th>
+                                            <th class="py-4 px-2 text-right text-[10px] font-bold uppercase">Balance Status</th>
+                                            <th class="py-4 px-2 text-center text-[10px] font-bold uppercase">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="ledger-table-body" class="divide-y"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div id="business-view" class="hidden space-y-8 animate-slide pb-20">
+                    <div class="flex items-center justify-between">
+                        <button onclick="showHotelList()" class="flex items-center gap-2 text-slate-500 font-bold bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-100 hover:text-slate-800 transition-colors">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Hotels
+                        </button>
+                        <h2 class="text-3xl font-black text-slate-800">Business P&L Statement</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div class="bg-blue-600 p-6 rounded-[2rem] text-white shadow-xl">
+                            <p class="text-[10px] font-black uppercase opacity-70 mb-1 text-white">Total Sales</p>
+                            <h3 id="stat-total-sales" class="text-3xl font-black text-white">?0</h3>
+                        </div>
+                        <div class="bg-slate-900 p-6 rounded-[2rem] text-white shadow-xl">
+                            <p class="text-[10px] font-black uppercase opacity-70 mb-1 text-white">Expenses</p>
+                            <h3 id="stat-total-expenses" class="text-3xl font-black text-white">?0</h3>
+                        </div>
+                        <div class="bg-amber-500 p-6 rounded-[2rem] text-white shadow-xl">
+                            <p class="text-[10px] font-black uppercase opacity-70 mb-1 text-white">Net Profit</p>
+                            <h3 id="stat-net-profit" class="text-3xl font-black text-white">?0</h3>
+                        </div>
+                        <div class="bg-indigo-600 p-6 rounded-[2rem] text-white shadow-xl">
+                            <p class="text-[10px] font-black uppercase opacity-70 mb-1 text-white">Market Dues</p>
+                            <h3 id="stat-total-pending" class="text-3xl font-black text-white">?0</h3>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div id="business-view" class="hidden space-y-8 animate-slide pb-20">
+                    <div class="flex items-center justify-between">
+                        <button onclick="showHotelList()" class="flex items-center gap-2 text-slate-500 font-bold bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-100 hover:text-slate-800 transition-colors">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Hotels
+                        </button>
+                        <h2 class="text-3xl font-black text-slate-800">Business P&L Statement</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div class="bg-blue-600 p-6 rounded-[2rem] text-white shadow-xl">
+                            <p class="text-[10px] font-black uppercase opacity-70 mb-1">Total Sales (Sold)</p>
+                            <h3 id="stat-total-sales" class="text-3xl font-black">?</h3>
+                        </div>
+                        <div class="bg-slate-900 p-6 rounded-[2rem] text-white shadow-xl">
+                            <p class="text-[10px] font-black uppercase opacity-70 mb-1">Total Expenses (Cost)</p>
+                            <h3 id="stat-total-expenses" class="text-3xl font-black">?</h3>
+                        </div>
+                        <div class="bg-amber-500 p-6 rounded-[2rem] text-white shadow-xl">
+                            <p class="text-[10px] font-black uppercase opacity-70 mb-1">Total Pending (Market)</p>
+                            <h3 id="stat-total-pending" class="text-3xl font-black">?</h3>
+                        </div>
+                        <div class="bg-red-600 p-6 rounded-[2rem] text-white shadow-xl">
+                            <p class="text-[10px] font-black uppercase opacity-70 mb-1">Net Profit / Loss</p>
+                            <h3 id="stat-net-profit" class="text-3xl font-black">?</h3>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2 bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+                            <div class="p-6 border-b flex items-center justify-between">
+                                <h3 class="font-black text-slate-800 uppercase text-sm tracking-widest">Inventory & Expenses</h3>
+                                <button onclick="toggleElement('purchase-form')" class="text-xs font-black text-red-600 bg-red-50 px-3 py-1.5 rounded-lg">+ Add Record</button>
+                            </div>
+                            
+                            <!-- <div id="purchase-form" class="p-6 bg-slate-50 border-b space-y-4">
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                    <div class="col-span-1">
+                                        <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Date</label>
+                                        <input type="date" id="p-date" value="2026-02-13" class="w-full p-2.5 rounded-xl border text-sm">
+                                    </div>
+                                    <div class="col-span-1">
+                                        <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Category</label>
+                                        <select id="p-type" onchange="if(window.handlePurchaseTypeChange) handlePurchaseTypeChange()" class="w-full p-2.5 rounded-xl border text-sm">
+                                            <option value="Animals">Animals</option>
+                                            <option value="Hens">Hens</option>
+                                            <option value="Fish">Fish</option>
+                                            <option value="Salary">Salary</option>
+                                            <option value="Miscellaneous">Miscellaneous</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Qty (Count)</label>
+                                        <input type="number" id="p-qty" placeholder="Count" class="w-full p-2.5 rounded-xl border text-sm">
+                                    </div>
+                                    <div>
+                                        <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Weight (Kgs)</label>
+                                        <input type="number" id="p-weight" placeholder="Kgs" class="w-full p-2.5 rounded-xl border text-sm">
+                                    </div>
+                                    <div>
+                                        <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Price / Kg</label>
+                                        <input type="number" id="p-rate" placeholder="?/Kg" class="w-full p-2.5 rounded-xl border text-sm">
+                                    </div>
+                                </div>
+                                <button id="btn-record-stock" onclick="savePurchase()" class="w-full bg-slate-900 text-white py-3 rounded-xl font-black text-sm uppercase shadow-lg hover:bg-black active:scale-95 transition-all">Record Entry</button>
+                            </div> -->
+
+                            <div id="purchase-form" class="p-6 bg-slate-50 border-b space-y-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="col-span-1">
+            <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Date</label>
+            <input type="date" id="p-date" value="2026-02-13" class="w-full p-2.5 rounded-xl border text-sm">
+        </div>
+        <!-- <div class="col-span-1">
+            <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Category</label>
+            <select id="p-type" onchange="handlePurchaseTypeChange()" class="w-full p-2.5 rounded-xl border text-sm"> --
+                <div class="flex items-center gap-2 mb-1">
+    <label class="text-[10px] uppercase font-bold text-slate-400">Category</label>
+    <button onclick="addNewCategory()" class="text-[10px] text-green-600 font-bold hover:underline">+ Add</button>
+    <button onclick="removeCategory()" class="text-[10px] text-red-500 font-bold hover:underline">- Remove</button>
+</div> -->
+<div class="col-span-1">
+    <div class="flex items-center gap-2 mb-1">
+        <label class="text-[10px] uppercase font-bold text-slate-400 mb-1 block">Category</label>
+        <button type="button" onclick="addNewCategory()" class="text-[10px] text-green-600 font-bold hover:underline">+ Add</button>
+        <button type="button" onclick="removeCategory()" class="text-[10px] text-red-500 font-bold hover:underline">- Remove</button>
+    </div>
+
+           <!-- <option value="Animals">Animals</option>
+                <option value="Hens">Hens</option>
+                <option value="Fish">Fish</option>
+                <option value="Salary">Salary</option>
+                <option value="Miscellaneous">Miscellaneous</option> -->
+                <select id="p-type" onchange="handlePurchaseTypeChange()" class="w-full border rounded-lg p-2">
+            </select>
+        </div>
+
+        <div id="field-qty">
+            <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Qty (Count)</label>
+            <input type="number" id="p-qty" placeholder="Count" class="w-full p-2.5 rounded-xl border text-sm">
+        </div>
+        <div id="field-weight">
+            <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Weight (Kgs)</label>
+            <input type="number" id="p-weight" placeholder="Kgs" class="w-full p-2.5 rounded-xl border text-sm">
+        </div>
+        <div id="field-rate">
+            <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Price / Kg</label>
+            <input type="number" id="p-rate" placeholder="?/Kg" class="w-full p-2.5 rounded-xl border text-sm">
+        </div>
+
+        <div id="field-total-cost" class="hidden">
+            <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Total Cost</label>
+            <input type="number" id="p-total-cost" placeholder="Total ?" class="w-full p-2.5 rounded-xl border text-sm">
+        </div>
+        <div id="field-description" class="hidden">
+            <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Description</label>
+            <input type="text" id="p-description" placeholder="Enter description" class="w-full p-2.5 rounded-xl border text-sm">
+        </div>
+        <div id="field-emp-name" class="hidden">
+            <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Employee Name</label>
+            <input type="text" id="p-emp-name" placeholder="Name" class="w-full p-2.5 rounded-xl border text-sm">
+        </div>
+        <div id="field-days" class="hidden">
+            <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Days Worked</label>
+            <input type="number" id="p-days" placeholder="0" class="w-full p-2.5 rounded-xl border text-sm">
+        </div>
+        <div id="field-leaves" class="hidden">
+            <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Leaves Taken</label>
+            <input type="number" id="p-leaves" placeholder="0" class="w-full p-2.5 rounded-xl border text-sm">
+        </div>
+        <div id="field-paid" class="hidden">
+            <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Paid Amount</label>
+            <input type="number" id="p-paid" placeholder="? Gave" class="w-full p-2.5 rounded-xl border text-sm">
+        </div>
+        <div id="field-pending" class="hidden">
+            <label class="text-[9px] font-black uppercase text-slate-400 mb-1 block">Pending Amount</label>
+            <input type="number" id="p-pending" placeholder="? Pending" class="w-full p-2.5 rounded-xl border text-sm bg-slate-100" readonly>
+        </div>
+    </div>
+    
+    <button id="btn-record-stock" onclick="savePurchase()" class="w-full bg-slate-900 text-white py-3 rounded-xl font-black text-sm uppercase shadow-lg hover:bg-black active:scale-95 transition-all">
+        Record Entry
+    </button>
+</div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left">
+                                    <!-- <thead class="bg-slate-50">
+                                        <tr>
+                                            <th class="p-4 text-[10px] font-black uppercase text-slate-400">Date</th>
+                                            <th class="p-4 text-[10px] font-black uppercase text-slate-400">Category</th>
+                                            <th class="p-4 text-[10px] font-black uppercase text-slate-400 text-center">Details</th>
+                                            <th class="p-4 text-[10px] font-black uppercase text-slate-400 text-right">Total Amount</th>
+                                            <th class="p-4 w-10"></th>
+                                        </tr>
+                                    </thead> -->
+    <thead>
+    <tr class="bg-slate-50 text-slate-500 text-[10px] uppercase font-bold">
+        <th class="p-4">Date & Time</th>
+        <th class="p-4">Category</th>
+        <th class="p-4 text-center">Quantity</th>
+        <th class="p-4 text-center">Weight</th>
+        <th class="p-4 text-center">Price/kg</th>
+        <th class="p-4 text-center">Description</th>
+        <th class="p-4 text-right">Cost</th>
+        <th class="p-4 text-center">Action</th>
+    </tr>
+</thead>
+    <tbody id="purchase-table-body"></tbody>
+</table>
+                                    <!-- <tbody id="purchase-table-body" class="divide-y text-sm">
+                                        <tr>
+                                            <td class="p-4 text-slate-500">2026-02-13</td>
+                                            <td class="p-4"><span class="px-2 py-1 rounded bg-orange-50 text-orange-600 text-[10px] font-bold uppercase">Hens</span></td>
+                                            <td class="p-4 text-center font-bold text-slate-700">200 Nos<br><span class="text-[10px] text-slate-400">500 kg @ ?150/kg</span></td>
+                                            <td class="p-4 text-right font-black">?75,000</td>
+                                            <td class="p-4 text-slate-300"><i data-lucide="trash-2" class="w-4 h-4 cursor-pointer"></i></td>
+                                        </tr>
+                                    </tbody> -->
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- <div class="space-y-6">
+                            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                                <h3 class="font-black text-slate-800 uppercase text-xs tracking-widest mb-4">Stock Overview</h3>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-xs font-bold text-slate-500">Total Animals</span>
+                                        <span id="avail-stock-animals" class="font-black text-slate-900 text-lg">0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-xs font-bold text-slate-500">Total Hens</span>
+                                        <span id="avail-stock-hens" class="font-black text-slate-900 text-lg">0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-xs font-bold text-slate-500">Total Fish</span>
+                                        <span id="avail-stock-fish" class="font-black text-slate-900 text-lg">0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+                                <h3 class="font-black text-slate-800 uppercase text-xs tracking-widest mb-4">Operational Costs</h3>
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center p-3 bg-red-50 rounded-2xl">
+                                        <span class="text-xs font-bold text-red-600">Total Salaries</span>
+                                        <span id="summary-salaries" class="font-black text-red-700">?0</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-3 bg-red-50 rounded-2xl">
+                                        <span class="text-xs font-bold text-red-600">Miscellaneous</span>
+                                        <span id="summary-misc" class="font-black text-red-700">?0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    <div class="space-y-4">
+<div class="bg-white p-4 rounded-2xl border shadow-sm">
+    <h3 class="font-bold text-slate-800 mb-3">STOCK OVERVIEW</h3>
+    <div class="flex justify-between mb-2">
+        <span>Total Animals</span>
+        <span id="stat-total-animals" class="font-bold">0</span>
+    </div>
+    <div class="flex justify-between mb-2">
+        <span>Total Hens</span>
+        <span id="stat-total-hens" class="font-bold">0</span>
+    </div>
+    <div class="flex justify-between mb-2">
+        <span>Total Fish</span>
+        <span id="stat-total-fish" class="font-bold">0</span>
+    </div>
+    <div class="mt-4 pt-3 border-t border-slate-100">
+        <p class="text-[10px] font-bold text-slate-500 uppercase mb-2">Count Conversion Settings</p>
+        <div class="grid grid-cols-1 gap-2">
+            <label class="text-[11px] text-slate-600">
+                Avg Kg Per Mutton Animal
+                <input type="number" step="0.1" min="0.1" id="setting-mutton-kg" class="w-full mt-1 p-2 border rounded-lg text-sm" placeholder="12">
+            </label>
+            <label class="text-[11px] text-slate-600">
+                Avg Kg Per Hen
+                <input type="number" step="0.1" min="0.1" id="setting-hen-kg" class="w-full mt-1 p-2 border rounded-lg text-sm" placeholder="1.8">
+            </label>
+            <label class="text-[11px] text-slate-600">
+                Chicken Liver Kg Per Hen
+                <input type="number" step="0.01" min="0.01" id="setting-liver-kg" class="w-full mt-1 p-2 border rounded-lg text-sm" placeholder="0.09">
+            </label>
+            <button type="button" id="btn-save-stock-settings" class="w-full mt-1 bg-slate-900 text-white py-2 rounded-lg text-xs font-bold">Save Settings</button>
+        </div>
+    </div>
+</div>
+
+<div class="bg-white p-6 rounded-2xl border shadow-sm">
+    <h3 class="font-bold text-slate-800 mb-4">OPERATIONAL COSTS</h3>
+    <div class="flex justify-between mb-2">
+        <span class="text-red-500">Total Salaries</span>
+        <span id="stat-total-salaries" class="font-bold">?0</span>
+    </div>
+    <div class="flex justify-between mb-2">
+        <span class="text-red-500">Miscellaneous</span>
+        <span id="stat-total-misc" class="font-bold">?0</span>
+    </div>
+</div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
