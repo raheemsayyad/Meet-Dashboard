@@ -2743,7 +2743,11 @@ function exportSalesTrackingToExcel() {
     else if (todayOpeningAvailable < 10) alertText = 'Low available stock for today. Add stock to avoid shortages.';
 
     const rows = [
+<<<<<<< HEAD
         ['Filter', 'Filtered Range', `${range.label} (${range.from} to ${range.to})`],
+=======
+        ['Filter', 'Selected Days', `${range.label} (${range.from} to ${range.to})`],
+>>>>>>> c4c06e1e678780345f4e605aa178b5330383cc09
         ['Filter', 'Bills Count', Number(rangeAgg.totalEntries || 0)],
         ['KPI', 'Stock Left / Used', `${rangeNetMovement >= 0 ? '+' : ''}${rangeNetMovement.toFixed(2)} kg`],
         ['KPI', 'Money Collected %', `${collectionEfficiency.toFixed(1)}%`],
@@ -2752,12 +2756,21 @@ function exportSalesTrackingToExcel() {
         ['Yesterday', 'Money', `Rs ${yesterdayAgg.totalSales.toLocaleString()}`],
         ['Yesterday', 'Kg Sold', `${yesterdayAgg.totalStockKg.toFixed(2)} kg`],
         ['Yesterday', 'Kg Bought', `${yesterdayPurchased.toFixed(2)} kg`],
+<<<<<<< HEAD
         ['Yesterday', 'Left', `${yesterdayClosingLeft.toFixed(2)} kg`],
         ['Today', 'Money', `Rs ${todayAgg.totalSales.toLocaleString()}`],
         ['Today', 'Kg Sold', `${todayAgg.totalStockKg.toFixed(2)} kg`],
         ['Today', 'Kg Bought', `${todayPurchased.toFixed(2)} kg`],
         ['Filtered', 'Total Money', `Rs ${rangeAgg.totalSales.toLocaleString()}`],
         ['Filtered', 'Total Kg Sold', `${rangeAgg.totalStockKg.toFixed(2)} kg`],
+=======
+        ['Yesterday', 'Stock Left', `${yesterdayClosingLeft.toFixed(2)} kg`],
+        ['Today', 'Money', `Rs ${todayAgg.totalSales.toLocaleString()}`],
+        ['Today', 'Kg Sold', `${todayAgg.totalStockKg.toFixed(2)} kg`],
+        ['Today', 'Kg Bought', `${todayPurchased.toFixed(2)} kg`],
+        ['Selected Days', 'Money', `Rs ${rangeAgg.totalSales.toLocaleString()}`],
+        ['Selected Days', 'Kg Sold', `${rangeAgg.totalStockKg.toFixed(2)} kg`],
+>>>>>>> c4c06e1e678780345f4e605aa178b5330383cc09
         ['Today', 'Available (Yday Left + Today Bought)', `${todayOpeningAvailable.toFixed(2)} kg`]
     ];
 
@@ -2808,7 +2821,11 @@ function updateSalesTrackingStats() {
     setText('sales-stat-today-opening', `${todayOpeningAvailable.toFixed(2)} kg`);
     setText('sales-stat-range-sales', `Rs ${rangeAgg.totalSales.toLocaleString()}`);
     setText('sales-stat-range-stock', `${rangeAgg.totalStockKg.toFixed(2)} kg`);
+<<<<<<< HEAD
     setText('sales-range-label', `Filtered Days: ${range.label} (${range.from} to ${range.to}) | Bills: ${rangeAgg.totalEntries}`);
+=======
+    setText('sales-range-label', `Selected Days: ${range.label} (${range.from} to ${range.to}) | Bills: ${rangeAgg.totalEntries}`);
+>>>>>>> c4c06e1e678780345f4e605aa178b5330383cc09
 
     const netMovementEl = document.getElementById('sales-kpi-net-movement');
     if (netMovementEl) {
