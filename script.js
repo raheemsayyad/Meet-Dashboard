@@ -2752,7 +2752,7 @@ function exportSalesTrackingToExcel() {
         ['Yesterday', 'Money', `Rs ${yesterdayAgg.totalSales.toLocaleString()}`],
         ['Yesterday', 'Kg Sold', `${yesterdayAgg.totalStockKg.toFixed(2)} kg`],
         ['Yesterday', 'Kg Bought', `${yesterdayPurchased.toFixed(2)} kg`],
-        ['Yesterday', 'Stock Left', `${yesterdayClosingLeft.toFixed(2)} kg`],
+        ['Yesterday', 'Left', `${yesterdayClosingLeft.toFixed(2)} kg`],
         ['Today', 'Money', `Rs ${todayAgg.totalSales.toLocaleString()}`],
         ['Today', 'Kg Sold', `${todayAgg.totalStockKg.toFixed(2)} kg`],
         ['Today', 'Kg Bought', `${todayPurchased.toFixed(2)} kg`],
